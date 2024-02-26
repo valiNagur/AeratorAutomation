@@ -1,0 +1,143 @@
+#include "Adafruit_Sensor.h"
+#include "DHT.h"
+#include "DHT_U.h"
+#include "WiFi.h"
+#include "HTTPClient.h"
+#include "twilio.hpp"
+
+
+#define DHTPIN 25
+#define DHTTYPE    DHT11 
+float tempvalue;// above 3 are for temprature sensor
+
+const int aerator=5;//aerator status
+
+const char* ssid = "127.0.0.1";
+const char* password = "connectaipo";//above 2 are for wifi
+
+const int phPin=33;
+float phvalue;
+float phreadValue=0;//above 3 are for ph sensor
+
+const int doPin = 32;
+float doreadvalue=0;
+float dovalue;//for do sensor
+// Calibration values for measuring do values
+const float slope = 0.25;  // Replace with the slope value from your calibration
+const float yIntercept = 2.0;  // Replace with the y-intercept value from your calibration
+
+
+const char* serverName = "http://api.thingspeak.com/update";
+String apiKey = "RH7JE6MT0UGU02UK";// write API Key provided by thingspeak
+
+const char* accountSID = "AC6ae8068a7852e9959af117f83093450c";// Twilio credentials
+const char* authToken = "5724176db9daa3d329273ce4d4311373";
+const char* from_number = "+12058815485";
+const char* to_number = "+918688276365";//modify this number to user phone number
+Twilio *twilio;
+
+
+DHT_Unified dht(DHTPIN, DHTTYPE);
+uint32_t delayMS;
+void setup()
+{
+  pinMode(2,OUTPUT);
+  pinMode(aerator,OUTPUT);
+  pinMode(phPin,INPUT);
+  pinMode(doPin,INPUT);//definig input and output pins
+
+  Serial.begin(9600);//starting serial monitor 
+
+  twilio = new Twilio(accountSID, authToken);//initalizing twllio
+  
+  dht.begin();
+  sensor_t sensor;
+  dht.temperature().getSensor(&sensor);
+  delayMS = sensor.min_delay / 1000;//initalizing temperature sensor
+  
+  WiFi.begin(ssid, password);//connecting to wifi network
+  Serial.println("Connecting to internet ");
+  while(WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.print(".");
+  }
+  Serial.println("");
+  digitalWrite(2,HIGH);
+  delay(1000);
+  digitalWrite(2,LOW);
+  Serial.print("Connected to WiFi network with IP Address: ");
+  Serial.println(WiFi.localIP());
+}
+void loop()
+{
+    
+  if(WiFi.status()== WL_CONNECTED){
+    WiFiClient client;
+    HTTPClient http;
+    http.begin(client, serverName);
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+    sensors_event_t event;    // Get temperature event 
+    dht.temperature().getEvent(&event);
+    tempvalue=event.temperature;//reading temprature 
+    phreadValue= analogRead(phPin);//reading ph level
+    float voltage=phreadValue*(3.3/4095.0);
+    phvalue=(3.3*voltage);
+
+    doreadvalue=analogRead(doPin);//reading do level
+    dovalue = (slope * doreadvalue) + yIntercept;
+    
+
+    if (isnan(tempvalue))  //those values are also checked for nan  
+      Serial.println(F("Error in reading values of Temperature sensor !"));
+    else if(isnan(phvalue))
+      Serial.println(F("Error in reading values of Ph sensors !"));
+    else if(isnan(dovalue))  
+      Serial.println(F("Error in reading values of DO sensors !"));
+    else {
+      Serial.print(F("Temperature: "));//printing all values here
+      Serial.print(tempvalue);
+      Serial.println(F("°C"));
+      Serial.print(F("pH level : "));
+      Serial.print(phvalue);
+      Serial.print(F("DO level : "));
+      Serial.print(dovalue);   
+
+
+      if(dovalue<=5||tempvalue>=24||phvalue<=6.5){//Turning on aerator
+        digitalWrite(aerator,LOW);
+        sendNotification("Alert : Aerator Turned On !!!");
+        //sending message to farmer mobile
+        delay(5000);
+      }
+      else if(dovalue>=12||tempvalue<=18||phvalue>=7.5){//Turning off aerator
+        digitalWrite(aerator,HIGH);
+        sendNotification("Alert : Aerator Turned Off !!!");//sending message to farmer mobile
+      }
+
+      String httpRequestData = "api_key=" + apiKey + "&field1=" + String(dovalue)+ "&field2=" + String(tempvalue)+"&field3="+String(phvalue)+"&field4="+String(!digitalRead(aerator));
+      int httpResponseCode = http.POST(httpRequestData);
+      if(httpResponseCode==200)   //Sending data to thingspeak
+        Serial.println("Data has been successfully sent to server !!!");
+      digitalWrite(2,HIGH);
+      delay(500);
+      digitalWrite(2,LOW);  
+      delay(60000);
+     }
+    http.end();
+  }
+  else{
+    Serial.println("WIFI not connected ");
+  }
+  delay(10000);
+}
+void sendNotification(String message) {
+  
+  String response;
+
+  bool success = twilio->send_message(to_number, from_number, message,response);
+  if (success) {
+    Serial.println("Sent message successfully!");
+  } else {
+     Serial.println(response);
+  }
+}
