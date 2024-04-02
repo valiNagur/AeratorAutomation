@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AquaFriends</string>
+    <string name="login">Login</string>
+    <string name="phone">phone</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="aqua_farms">Aqua Farms</string>
+</resources>

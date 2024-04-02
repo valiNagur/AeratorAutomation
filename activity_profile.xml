@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Profile"
+    android:background="@drawable/back"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/menu"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:clickable="true"
+        android:contentDescription="Menu Button"
+        android:onClick="showmenu"
+        android:src="@drawable/menusample" />
+    <ListView
+        android:id="@+id/menubar"
+        android:layout_width="100dp"
+        android:layout_height="200dp"
+        android:clickable="true"
+        android:dividerHeight="1dp"
+        android:listSelector="@color/white"
+        android:divider="@color/black"
+        android:layout_below="@+id/menu"
+        android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profile"
+        android:text="PROFILE"
+        android:textSize="40dp"
+        android:textColor="#074373"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/img"
+        android:textAlignment="center"
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nametv"
+        android:text="Name : "
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_below="@id/profile"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/name"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@id/nametv"
+        android:layout_below="@id/profile"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phonetv"
+        android:text="Phone : "
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_below="@id/nametv"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@id/phonetv"
+        android:layout_below="@id/nametv"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/aeratorstv"
+        android:text="Aerators : "
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_below="@id/phonetv"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/aerators"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@id/aeratorstv"
+        android:layout_below="@id/phonetv"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addresstv"
+        android:text="Address : "
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_below="@id/aeratorstv"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/address"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@id/addresstv"
+        android:layout_below="@id/aeratorstv"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/keytv"
+        android:text="API key : "
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_below="@id/addresstv"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/key"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@id/keytv"
+        android:layout_below="@id/addresstv"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/urltv"
+        android:text="Cloud URL : "
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_below="@id/keytv"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/url"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@id/urltv"
+        android:layout_below="@id/key"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        />
+
+</RelativeLayout>
+</ScrollView>

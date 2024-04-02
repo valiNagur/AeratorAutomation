@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".login">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <ImageView
+        android:id="@+id/ImageView"
+        android:layout_width="match_parent"
+        android:layout_height="301dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="3dp"
+        android:layout_below="@id/login"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="-3dp"
+        android:layout_marginBottom="-1dp"
+        android:contentDescription="Aqua Farms"
+        android:src="@drawable/fish1" />
+
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="137dp"
+        android:layout_marginEnd="-11dp"
+        android:gravity="center"
+        android:text="Welcome to Aqua!"
+        android:layout_marginBottom="50dp"
+        android:textColor="@color/AquaGreen"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/phonetext"
+        android:text="Phone"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_below="@id/titleTextView"
+        android:textColor="@color/black"
+        android:textSize="25dp" />
+
+    <EditText
+        android:layout_below="@+id/phonetext"
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:hint="Registered Mobile Number"
+        android:outlineAmbientShadowColor="@color/black"
+        android:outlineSpotShadowColor="@color/black"
+        android:shadowColor="@color/black"
+        android:textColor="@color/black"
+        android:textColorHighlight="@color/black"
+        android:drawableLeft="@drawable/phone"
+        android:drawablePadding="15dp"
+        android:textColorLink="@color/black" />
+
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#1572BC"
+        android:shadowColor="#00CCFF"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="@string/login"
+        android:layout_below="@id/phone"
+        android:onClick="login"
+        android:textColor="@color/white"
+        android:textSize="15dp" />
+
+
+</RelativeLayout> 
+</ScrollView>
